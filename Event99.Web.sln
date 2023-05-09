@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33627.172
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Event99.Web", "Event99.Web\Event99.Web.csproj", "{522E4AA9-94D1-4B0B-938E-704E1FBC7BFE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Event99.Web", "Event99.Web\Event99.Web.csproj", "{522E4AA9-94D1-4B0B-938E-704E1FBC7BFE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Event99.DataAccess", "Event99.DataAccess\Event99.DataAccess.csproj", "{AA45F4E9-B59E-48E7-A1B6-E8AD8A82E9F4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Event99.DataAccess", "Event99.DataAccess\Event99.DataAccess.csproj", "{AA45F4E9-B59E-48E7-A1B6-E8AD8A82E9F4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Event99.Models", "Event99.Models\Event99.Models.csproj", "{A8A8FC94-650A-4C49-8523-16363C78F543}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Event99.Models", "Event99.Models\Event99.Models.csproj", "{A8A8FC94-650A-4C49-8523-16363C78F543}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Event99.Utilty", "Event99.Utilty\Event99.Utilty.csproj", "{C783F919-06C1-4168-B95E-80B9E364F961}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Event99.Utilty", "Event99.Utilty\Event99.Utilty.csproj", "{C783F919-06C1-4168-B95E-80B9E364F961}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Event99.Entities.Configurations", "Event99.Entities.Configurations\Event99.Entities.Configurations.csproj", "{D930ED85-8AE0-40C9-B1F1-B8D8F7F2E961}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{C783F919-06C1-4168-B95E-80B9E364F961}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C783F919-06C1-4168-B95E-80B9E364F961}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C783F919-06C1-4168-B95E-80B9E364F961}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D930ED85-8AE0-40C9-B1F1-B8D8F7F2E961}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D930ED85-8AE0-40C9-B1F1-B8D8F7F2E961}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D930ED85-8AE0-40C9-B1F1-B8D8F7F2E961}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D930ED85-8AE0-40C9-B1F1-B8D8F7F2E961}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -15,7 +15,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Event99.Entities.Configurations\Event99.Entities.Configurations.csproj" />
     <ProjectReference Include="..\Event99.Models\Event99.Models.csproj" />
+    <ProjectReference Include="..\Event99.Utilty\Event99.Utilty.csproj" />
   </ItemGroup>
 
 </Project>

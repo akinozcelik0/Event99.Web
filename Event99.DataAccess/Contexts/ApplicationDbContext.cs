@@ -1,4 +1,5 @@
-﻿using Event99.Models.DbSets;
+﻿using Event99.Models.Entites;
+using Event99.Models.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
@@ -18,6 +19,14 @@ namespace Event99.DataAccess.Contexts
         }
 
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<City> Cities { get; set; }
+        public DbSet<Location> Locations { get; set; }
+        public DbSet<Event> Events { get; set; }
+        public DbSet<Ticket> Tickets { get; set; }
+
+
+
 
     }
 

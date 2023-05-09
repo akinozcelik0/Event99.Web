@@ -1,0 +1,79 @@
+﻿@model IEnumerable<Event99.Models.Entities.Event>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="content-body mt-4 ">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Events</h4>
+                    <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
+                    <div class="heading-elements">
+                        <ul class="list-inline mb-0">
+                            <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
+                            <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="card-content collapse show">
+                    <div class="card-body" >
+                        <p>
+                            <a asp-action="Create">Create New</a>
+                        </p>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Name)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Description)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.EventDate)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.AttendeeQuota)
+                                    </th>
+
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Name)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Description)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.EventDate)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.AttendeeQuota)
+                                        </td>
+
+                                        <td>
+                                            
+                                            <a class="btn btn-blue-grey" asp-action="Details" asp-route-id="@item.Id">Details</a> 
+                                            <a class="btn btn-bg-gradient-x-orange-yellow" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Event99.Models.DbSets
+namespace Event99.Models.Entites
 {
     public class ApplicationUser : IdentityUser
     {

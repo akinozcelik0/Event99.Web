@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.16" />
+    <ProjectReference Include="..\Event99.Models\Event99.Models.csproj" />
   </ItemGroup>
 
 </Project>
