@@ -122,34 +122,6 @@ namespace Event99.Web.Areas.User.Controllers
             return RedirectToAction("Details");
         }
 
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> CreateTicket(Guid? id, Ticket ticket)
-        //{
-        //    var claimsIdentity = (ClaimsIdentity)User.Identity;
-        //    var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
-
-        //    if (id == null || _unitOfWork.Event == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    if (ModelState.IsValid)
-        //    {
-        //        ticket = new Ticket()
-        //        {
-        //            ApplicationUserId = claim.Value,
-        //            EventId = id,
-        //        };
-        //        await _unitOfWork.Ticket.AddAsync(ticket);
-        //        _unitOfWork.Save();
-        //        TempData["Success"] = "Ticket created successfully!";
-        //        return RedirectToAction("Index");
-        //    }
-        //    return RedirectToAction("Details");
-        //}
-
-
         // GET: User/Event/Edit/5
         public async Task<IActionResult> Edit(Guid? id)
         {
@@ -271,9 +243,6 @@ namespace Event99.Web.Areas.User.Controllers
         {
             return await _unitOfWork.Event.Exists(id);
         }
-
-
-
 
     }
 }
