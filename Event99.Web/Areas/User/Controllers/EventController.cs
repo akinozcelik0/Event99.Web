@@ -11,6 +11,8 @@ using Microsoft.AspNetCore.Authorization;
 using System.Data;
 using Event99.DataAccess.Repository.IRepository;
 using Event99.Models.ViewModels.Event;
+using System.Security.Claims;
+using System.Net.Sockets;
 
 namespace Event99.Web.Areas.User.Controllers
 {
@@ -50,6 +52,7 @@ namespace Event99.Web.Areas.User.Controllers
         // GET: User/Event/Create
         public IActionResult Create()
         {
+
             EventViewModel eventViewModel = new()
             {
                 Event = new(),
@@ -74,9 +77,12 @@ namespace Event99.Web.Areas.User.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(EventViewModel eventViewModel)
         {
+            var claimsIdentity = (ClaimsIdentity)User.Identity;
+            var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+
             if (ModelState.IsValid)
             {
-                
+                eventViewModel.Event.ApplicationUserId = claim.Value;
                 await _unitOfWork.Location.AddAsync(eventViewModel.Location);
                 var location = eventViewModel.Location;
                 if (location != null)
@@ -90,6 +96,59 @@ namespace Event99.Web.Areas.User.Controllers
             }
             return View(eventViewModel);
         }
+
+        public async Task<IActionResult> CreateTicket(Guid? id)
+        {
+            var claimsIdentity = (ClaimsIdentity)User.Identity;
+            var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+
+            if (id == null || _unitOfWork.Event == null)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                Ticket ticket = new Ticket()
+                {
+                    ApplicationUserId = claim.Value,
+                    EventId = id,
+                };
+                await _unitOfWork.Ticket.AddAsync(ticket);
+                _unitOfWork.Save();
+                TempData["Success"] = "Ticket created successfully!";
+                return RedirectToAction("Index");
+            }
+            return RedirectToAction("Details");
+        }
+
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> CreateTicket(Guid? id, Ticket ticket)
+        //{
+        //    var claimsIdentity = (ClaimsIdentity)User.Identity;
+        //    var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+
+        //    if (id == null || _unitOfWork.Event == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    if (ModelState.IsValid)
+        //    {
+        //        ticket = new Ticket()
+        //        {
+        //            ApplicationUserId = claim.Value,
+        //            EventId = id,
+        //        };
+        //        await _unitOfWork.Ticket.AddAsync(ticket);
+        //        _unitOfWork.Save();
+        //        TempData["Success"] = "Ticket created successfully!";
+        //        return RedirectToAction("Index");
+        //    }
+        //    return RedirectToAction("Details");
+        //}
+
 
         // GET: User/Event/Edit/5
         public async Task<IActionResult> Edit(Guid? id)
@@ -131,6 +190,10 @@ namespace Event99.Web.Areas.User.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(Guid id, EventViewModel objEvent)
         {
+            var claimsIdentity = (ClaimsIdentity)User.Identity;
+            var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+
+
             if (objEvent == null || _unitOfWork.Event == null)
             {
                 return NotFound();
@@ -147,6 +210,7 @@ namespace Event99.Web.Areas.User.Controllers
                         objEvent.Event.LocationId = location.Id;
                     }
                     await _unitOfWork.Event.UpdateAsync(objEvent.Event);
+                    objEvent.Event.ApplicationUserId = claim.Value;
                     _unitOfWork.Save();
                     TempData["Success"] = "Event information updated successfully!";
                     return RedirectToAction("Index");
@@ -168,48 +232,48 @@ namespace Event99.Web.Areas.User.Controllers
             return View(objEvent);
         }
 
-        //// GET: User/Event/Delete/5
-        //public async Task<IActionResult> Delete(Guid? id)
-        //{
-        //    if (id == null || _context.Events == null)
-        //    {
-        //        return NotFound();
-        //    }
+        // GET: User/Event/Delete/5
+        public async Task<IActionResult> Delete(Guid? id)
+        {
+            if (id == null || _unitOfWork.Event == null)
+            {
+                return NotFound();
+            }
 
-        //    var @event = await _context.Events
-        //        .Include(i => i.Category)
-        //        .Include(i => i.Location)
-        //        .FirstOrDefaultAsync(m => m.Id == id);
-        //    if (@event == null)
-        //    {
-        //        return NotFound();
-        //    }
+            var eventDelete = await _unitOfWork.Event.GetAsync(id);
+            if (eventDelete == null)
+            {
+                return NotFound();
+            }
 
-        //    return View(@event);
-        //}
+            return View(eventDelete);
+        }
 
-        //// POST: User/Event/Delete/5
-        //[HttpPost, ActionName("Delete")]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> DeleteConfirmed(Guid id)
-        //{
-        //    if (_context.Events == null)
-        //    {
-        //        return Problem("Entity set 'ApplicationDbContext.Events'  is null.");
-        //    }
-        //    var @event = await _context.Events.FindAsync(id);
-        //    if (@event != null)
-        //    {
-        //        _context.Events.Remove(@event);
-        //    }
-
-        //    await _context.SaveChangesAsync();
-        //    return RedirectToAction(nameof(Index));
-        //}
+        // POST: User/Event/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(Guid id)
+        {
+            if (_unitOfWork.Event == null)
+            {
+                return Problem("Event doesn't exists!");
+            }
+            var objEvent = await _unitOfWork.Event.GetAsync(id);
+            if (objEvent != null)
+            {
+                await _unitOfWork.Event.DeleteAsync(id);
+            }
+            _unitOfWork.Save();
+            return RedirectToAction(nameof(Index));
+        }
 
         private async Task<bool> EventExists(Guid id)
         {
             return await _unitOfWork.Event.Exists(id);
         }
+
+
+
+
     }
 }

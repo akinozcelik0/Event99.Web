@@ -1,4 +1,5 @@
 ﻿using Event99.DataAccess.Entities;
+using Event99.Models.Entites;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,6 +23,8 @@ namespace Event99.Models.Entities
         public Guid? CategoryId { get; set; }
         public Category? Category { get; set; }
         public ICollection<Ticket>? Tickets { get; set; }
+        public string? ApplicationUserId { get; set; }
+        public ApplicationUser? ApplicationUser { get; set; }
 
     }
 }
