@@ -6,7 +6,7 @@ A Sample N-layered .NET Core Project Demonstrating Repository Pattern.
 * Tickets can be created for events.
 
 
-### Infrastructure
+### DataAccess
 Firstly, set the project "Web" as startup project.
 Secondly, choose DataAccess on Package Manager Console.
 At the start if there is zero migration program should start a migration and database update with DbInitializer. For manual start:
